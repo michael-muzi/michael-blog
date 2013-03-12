@@ -5,8 +5,11 @@ from django.contrib.auth.decorators import login_required
 from django.utils import simplejson
 from django.template import RequestContext
 from django.db.models import Q
+from django.contrib.auth.models import User
+from django.contrib.contenttypes.models import ContentType
 
 from home.models import Essay, EssayType, EssayTags
+from comment.models import Comment
 
 def index(request, template='index.html', mimetype=None):
     data={}
@@ -33,7 +36,10 @@ def search(request, template='essay/base.html', tag_id=None, type_id=None, mimet
     
 def essay_detail(request, template='essay/detail.html', id=None, mimetype=None):
     essay = get_object_or_404(Essay, pk=id)
-    data = {'essay':essay}
+    ct = ContentType.objects.get_for_model(essay)
+    comments = Comment.objects.filter(content_type=ct, object_id = essay.id)
+#    data = {'essay':essay}
+    data = {'essay':essay,'comments':comments}
     return render_to_response(template, data, mimetype=mimetype, context_instance=RequestContext(request))
     
 @login_required

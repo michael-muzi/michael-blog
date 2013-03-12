@@ -12,6 +12,7 @@ urlpatterns = patterns('home.views',
     
     #essay search
     url(r'^essay/search/$', 'search', name='essay_search'),
-    url(r'^essay/search/(?P<tag_id>[0-9]+)/$', 'search', name='search_tag'),
+    url(r'^essay/search/tag/(?P<tag_id>[0-9]+)/$', 'search', name='search_tag'),
+    url(r'^essay/search/type/(?P<type_id>[0-9]+)/$', 'search', name='search_type'),
     
 )
