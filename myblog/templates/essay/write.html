@@ -1,0 +1,26 @@
+{% extends "essay/base.html" %}
+
+{% block extrajs %}
+	<script type="text/javascript" src="{{ STATIC_URL }}js/home/kindeditor.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/home/zh_CN.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/home/write.js"></script>
+{% endblock %}
+
+{% block essay_left %}
+	<form method="POST" action="{% url 'essay_write' %}">
+		{% csrf_token %}
+		<input name="title" class="span3" type="text" placeholder="xxx">
+		
+		<select name="essayType" class="span2 offset1">
+			{% for i in essay_type %}
+		  	<option value="{{ i.type }}">{{ i.type }}</option>
+		  	{% endfor %}
+		</select>
+		
+<!-- 		<div class="row">
+			<textarea name="content" rows="20"></textarea>
+		</div> -->
+		<textarea id="contentqq" name="content" style="width:700px;height:200px;visibility:hidden;"></textarea>
+		<input class="btn" type="submit" value="Submit">
+	</form>
+{% endblock %}

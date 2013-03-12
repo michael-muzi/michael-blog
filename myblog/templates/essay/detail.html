@@ -1,0 +1,69 @@
+{% extends "essay/base.html" %}
+
+{% block essay_left %}
+<div>
+	<section class="well post">
+	    <h1>{{ essay.title }}</h1>
+	    <address class="post_infos">
+	                            发表于{{ essay.created|date:"Y-m-d H:i" }}
+	        &nbsp;
+	        <a href="{% url 'search_type' type_id=essay.type.id%}" class="label tag">{{ essay.type }}</a>
+	    </address>
+	    <hr>
+	    <div>
+		{{ essay.content|safe }}
+	    </div>
+	</section>
+	
+	<p>
+	    <span class="label label-info">郑重声明</span> 除非注明，本站文章均为原创或编译，转载请注明： 文章来自 <code>{{ request.get_host }}</code>
+	</p>
+	<hr>
+	
+	<section id="comments">
+	    {% include 'essay/comments.html' %}
+	</section>
+	<hr>
+	
+	<form class="comment_form" action="{% url 'comment_essay' %}" method="post">
+		{% csrf_token %}
+		<input type="hidden" name="object_pk" value="{{ essay.id }}" id="id_object_pk">
+		<input type="hidden" name="content_type" value="essay" id="content_type_pk">
+        <div class="control-group">
+            <div class="controls">
+                <input id="id_name" type="text" name="name" maxlength="50" placeholder="昵称">
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <div class="controls">
+                <input type="text" name="email" id="email" placeholder="Email 地址">
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <div class="controls">
+                <input type="text" name="url" id="url" placeholder="URL">
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <div class="controls">
+                <textarea id="id_comment" rows="10" cols="40" name="content"></textarea>
+            </div>
+        </div>
+        
+        <div class="control-group" style="display:none;">
+            <label for="id_honeypot">如果你在该字段中输入任何内容，那么你的评论就会被视为垃圾评论。</label>
+            <div class="controls">
+                <input type="text" name="honeypot" id="id_honeypot">
+            </div>
+        </div>
+	        
+	    <p class="submit">
+	    <input type="submit" name="post" class="btn btn-primary" value="提交评论">
+	<!--     <input type="submit" name="preview" class="btn" value="预览"> -->
+	    </p>
+	</form>
+</div>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% load michael_filters %}
+
+{% for essay in essay_list %}
+<section class="article-list">
+    <div class="post_header">
+        <div class="post_date">
+            {{ essay.created|date:"d" }}<span>{{ essay.created|date:"o m" }}</span>
+        </div>
+        <h1><a href="{% url 'essay_detail' id=essay.id %}">{{ essay.title }}</a></h1>
+    </div>
+    
+    <address class="post_infos">
+    	{% for tag in essay.tag.all %}
+        <a href="{% url 'search_tag' tag_id=tag.id %}" class="label tag">{{ tag.type }}</a>
+        {% endfor %}
+        <a href="{% url 'search_type' type_id=essay.type.id%}" class="label tag">{{ essay.type.type }}</a>
+    </address>
+    
+	{{ essay.content|truncatehanzi:"900"|safe }}
+	<div>
+		<p><a class="btn" href="{% url 'essay_detail' id=essay.id %}">View details »</a></p>
+	</div>
+</section>
+{% endfor %}
