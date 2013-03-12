@@ -1,0 +1,6 @@
+body {
+	background-image: url(../img/body-bak.png);
+	background-repeat: repeat-x;
+	background-position: 0 40px;
+	padding-top: 80px;
+}
