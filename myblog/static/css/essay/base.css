@@ -1,3 +1,5 @@
+
+/* essay list css */
 .article-list {
 	padding-bottom: 35px;
 }
@@ -57,4 +59,12 @@ a.tag {
 	width: 60%;
 	height: 100px;
 	min-width: 210px;
+}
+
+/* essay write css */
+#writeTags {
+	display: inline;
+	position: relative;
+	bottom: 4px;
+	left: 25px;
 }

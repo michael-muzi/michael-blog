@@ -16,9 +16,10 @@
         <a href="{% url 'search_type' type_id=essay.type.id%}" class="label tag">{{ essay.type.type }}</a>
     </address>
     
-	{{ essay.content|truncatehanzi:"900"|safe }}
-	<div>
-		<p><a class="btn" href="{% url 'essay_detail' id=essay.id %}">View details »</a></p>
+    <div>
+		{{ essay.content|truncatehanzi:"900"|safe }}
 	</div>
+	
+	<p><a class="btn" href="{% url 'essay_detail' id=essay.id %}">View details »</a></p>
 </section>
 {% endfor %}

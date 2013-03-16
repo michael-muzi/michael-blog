@@ -54,13 +54,12 @@ def essay_write(request, template='essay/write.html', mimetype=None):
                                                               defaults={'type': request.POST['essayType']})
         essay.type = essay_type
         tags = request.POST.get('tags','').split(',')
+        essay.save()
         for i in tags:
             if not i: break
-            tag, created = EssayTags.objects.get_or_create(tag=i, defaults={'tag':i})
-            #如何把一个对象转换成一个对象集合
+            tag, created = EssayTags.objects.get_or_create(tag=i, defaults={'tag':i,'user':user})
             essay.tag.add(tag)
             tag.tagCountPlus()
-        essay.save()
         return HttpResponseRedirect('/home/')
     
     essay_type = EssayType.objects.all()
@@ -79,3 +78,7 @@ def essay_rm(request,id):
 @login_required
 def essay_editor(request, id):
     pass
+
+def about_me_view(request, template='about.html', mimetype=None):
+    data = {}
+    return render_to_response(template, data, mimetype=mimetype, context_instance=RequestContext(request))

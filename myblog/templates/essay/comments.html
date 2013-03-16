@@ -1,7 +1,10 @@
-{% for comment in comments %}
-    <blockquote id="c{{ comment.id }}">
-        <small>{{ comment.created|date:"Y-m-d H:i" }} - {{ comment.nickname }}</small>
-        <p>{{ comment.content }}</p>
-    </blockquote>
-{% endfor %}
+
+	{% for comment in comments %}
+	    <blockquote id="c{{ comment.id }}">
+	        <small>{{ comment.created|date:"Y-m-d H:i" }} - {{ comment.nickname }}</small>
+	        <p>{{ comment.content }}</p>
+	    </blockquote>
+	{% empty %}
+		<p>暂无评论</p>
+	{% endfor %}
 	  

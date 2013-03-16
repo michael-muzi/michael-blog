@@ -15,4 +15,7 @@ urlpatterns = patterns('home.views',
     url(r'^essay/search/tag/(?P<tag_id>[0-9]+)/$', 'search', name='search_tag'),
     url(r'^essay/search/type/(?P<type_id>[0-9]+)/$', 'search', name='search_type'),
     
+    #about me
+    url(r'^about-me/$', 'about_me_view', name='about_me_view'),
+    
 )

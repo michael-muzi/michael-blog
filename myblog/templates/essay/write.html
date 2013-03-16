@@ -4,23 +4,34 @@
 	<script type="text/javascript" src="{{ STATIC_URL }}js/home/kindeditor.js"></script>
 	<script type="text/javascript" src="{{ STATIC_URL }}js/home/zh_CN.js"></script>
 	<script type="text/javascript" src="{{ STATIC_URL }}js/home/write.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('#tagCont').find('input').tagInput();
+		})
+	</script>
 {% endblock %}
 
 {% block essay_left %}
 	<form method="POST" action="{% url 'essay_write' %}">
 		{% csrf_token %}
-		<input name="title" class="span3" type="text" placeholder="xxx">
+		<input name="title" class="span3" type="text" placeholder="输入标题">
 		
 		<select name="essayType" class="span2 offset1">
 			{% for i in essay_type %}
 		  	<option value="{{ i.type }}">{{ i.type }}</option>
 		  	{% endfor %}
 		</select>
-		
-<!-- 		<div class="row">
-			<textarea name="content" rows="20"></textarea>
-		</div> -->
-		<textarea id="contentqq" name="content" style="width:700px;height:200px;visibility:hidden;"></textarea>
-		<input class="btn" type="submit" value="Submit">
+
+		<div class="control-group">
+			<textarea id="contentqq"name="content" style="width:700px;height:200px;visibility:hidden;"></textarea>
+		</div>
+		<div id="tagCont">
+			<input name="tags" class="span3" type="text" placeholder="输入tag，逗号分开">
+			<p id="writeTags"><span class="prompt">当前标签：</span><span class="label label-info tag">michael</span>
+			<span class="label label-info tag">muzi</span></p>
+		</div>
+	    <p class="submit">
+		    <input type="submit" name="post" class="btn btn-primary" value="提交">
+	    </p>
 	</form>
 {% endblock %}
