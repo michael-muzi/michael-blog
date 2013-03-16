@@ -4,4 +4,5 @@ urlpatterns = patterns('users.views',
     url(r'^sign-up/$', 'register', name='register_user'),
     url(r'^login/$', 'login_view', name='login_view'),
     url(r'^logout/$', 'logout_view', name='user_logout'),
+    url(r'^upload_avatar/$', 'upload_avatar', name='upload_avatar'),
 )

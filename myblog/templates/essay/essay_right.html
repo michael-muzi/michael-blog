@@ -1,0 +1,21 @@
+<div>
+	<h4>分类</h4>
+	{% for i in essay_type %}
+	</p><a href="{% url 'search_type' type_id=i.id%}">{{i.type}}</a><span>({{ i.num }})</span></p>
+	{% endfor %}
+</div>
+
+<div id="tags" class="tagList">
+	<h4>标签</h4>
+	{% for tag in essay_tags %}
+	<a href="{% url 'search_tag' tag_id=tag.id %}">{{ tag.tag }}</a>
+	{% endfor %}
+</div>
+
+<div>
+	<form enctype="multipart/form-data" action="{% url 'upload_avatar' %}" method="post">
+		{% csrf_token %}
+		<p>File: <input type="file" name="photo"></p>
+		<p><input type="submit" value="Upload"></p>
+	</form>
+</div>

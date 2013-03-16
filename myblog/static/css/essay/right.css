@@ -1,0 +1,12 @@
+.tagList a.size1{font-size:25px;padding:10px;color:#804D40;}
+.tagList a.size1:hover{color:#E13728;}
+.tagList a.size2{padding:7px;font-size:20px;color:#B9251A;}
+.tagList a.size2:hover{color:#E13728;}
+.tagList a.size3{padding:5px;font-size:35px;color:#C4876A;}
+.tagList a.size3:hover{color:#E13728;}
+.tagList a.size4{padding:5px;font-size:15px;color:#B46A47;}
+.tagList a.size4:hover{color:#E13728;}
+.tagList a.size5{padding:5px;font-size:25px;color:#E13728;}
+.tagList a.size5:hover{color:#B46A47;}
+.tagList a.size6{padding:0px;font-size:12px;color:#77625E}
+.tagList a.size6:hover{color:#E13728;}

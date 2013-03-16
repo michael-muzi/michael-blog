@@ -4,6 +4,21 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.contrib.auth.models import User
 from django.contrib import auth
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
+import os
+import Image
+
+from users.models import Avatar
+from users.forms import AvatarForm
+
+DEFAULT_AVATAR = settings.DEFAULT_AVATAR
+
+if not os.path.isfile(DEFAULT_AVATAR):
+    import shutil
+    image = os.path.join(os.path.abspath(os.path.dirname(__file__)),
+        "python.jpg")
+    shutil.copy(image, DEFAULT_AVATAR)
 
 def register(request, template='users/register.html', mimetype=None):
     if request.method=='POST':
@@ -39,3 +54,28 @@ def logout_view(request):
     # Redirect to a success page.
     return HttpResponseRedirect("/home/")
 
+@login_required
+def upload_avatar(request):
+    if not request.method == "POST":
+        form = AvatarForm()
+    else:
+        form = AvatarForm(request.POST, request.FILES)
+        if form.is_valid():
+            image = form.cleaned_data.get('photo')
+            avatar = Avatar(user=request.user, image=image, valid=True)
+            avatar.image.save("%s.jpg" % request.user.username, image)
+            image = Image.open(avatar.image.path)
+            image.thumbnail((480, 480), Image.ANTIALIAS)
+            image.convert("RGB").save(avatar.image.path, "JPEG")
+            avatar.save()
+            return HttpResponseRedirect('/home/')
+
+    if DEFAULT_AVATAR:
+        base, filename = os.path.split(DEFAULT_AVATAR)
+        filename, extension = os.path.splitext(filename)
+        generic96 = "%s/%s.96%s" % (base, filename, extension)
+        generic96 = generic96.replace(settings.MEDIA_ROOT, settings.MEDIA_URL)
+    else:
+        generic96 = ""
+
+    return HttpResponse(generic96)

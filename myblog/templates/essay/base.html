@@ -1,8 +1,28 @@
 {% extends "base.html" %}
 {% load michael_tag %}
 
+{% block extrajs %}
+	<script type="text/javascript" src="{{ STATIC_URL }}js/gadget/tags.js"></script>
+	{% block essay %}{% endblock %}
+	<script type="text/javascript">
+	$(document).ready(function(){
+		
+		/*多彩tag*/
+		var tags_a = $("#tags").find("a");
+		tags_a.each(function(){
+			var x = 9;
+			var y = 0;
+			var rand = parseInt(Math.random() * (x - y + 1) + y);
+			$(this).addClass("size"+rand);
+		});
+		
+	});
+	</script>
+{% endblock %}
+
 {% block extracss %}
 	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL}}css/essay/base.css" />
+	<link type="text/css" rel="stylesheet" href="{{ STATIC_URL}}css/essay/right.css" />
 {% endblock %}
 
 {% block content %}
