@@ -16,6 +16,9 @@ def index(request, template='index.html', mimetype=None):
     return render_to_response(template, data, mimetype=mimetype, context_instance=RequestContext(request))
 
 def essay(request, template='essay/base.html', mimetype=None):
+#    if not request.user.is_authenticated():
+#        essay_list = Essay.objects.all()
+#    essay_list = Essay.objects.filter(user=request.user)
     essay_list = Essay.objects.all()
     data={'essay_list': essay_list}
     return render_to_response(template, data, mimetype=mimetype, context_instance=RequestContext(request))

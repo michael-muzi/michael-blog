@@ -140,9 +140,11 @@ INSTALLED_APPS = (
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    #'rest_framework',
     'home',
     'users',
     'comment',
+    'photos'
 )
 
 # A sample logging configuration. The only tangible logging
@@ -175,3 +177,9 @@ LOGGING = {
 }
 
 DEFAULT_AVATAR = os.path.join(MEDIA_ROOT, 'python.jpg')
+
+# photos album settings
+PHOTOS_THUMB_WIDTH = 200
+PHOTOS_THUMB_HEIGHT = 300
+PHOTOS_NORMAL_WIDTH = 400
+PHOTOS_NORMAL_HEIGHT = 600

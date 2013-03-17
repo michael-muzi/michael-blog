@@ -1,9 +1,10 @@
-#Thu Mar 14 23:58:06 CST 2013
+#Sun Mar 17 21:08:31 CST 2013
 eclipse.preferences.version=1
 encoding//comment/views.py=utf8
 encoding//home/models.py=utf8
 encoding//home/templatetags/michael_filters.py=utf8
 encoding//home/views.py=utf8
+encoding//photos/froms.py=utf-8
 encoding//photos/image_field.py=utf-8
 encoding//photos/models.py=utf-8
 encoding//users/views.py=utf8

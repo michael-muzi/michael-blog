@@ -1,5 +1,7 @@
 # -*- coding:utf-8 -*-
 from django.db.models.fields.files import ImageField, ImageFieldFile
+from django.conf import settings
+
 try:
     from PIL import Image, ImageOps
 except ImportError:

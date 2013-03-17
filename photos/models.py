@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 from django.core.files import File
 from photos.image_field import ThumbnailImageField, ThumbnailImageFieldFile
-from myblinapp.util.comentandflag import FlagManager
 #import urllib
 
 class PhotoAlbum(models.Model):

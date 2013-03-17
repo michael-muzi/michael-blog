@@ -9,8 +9,9 @@ from django.contrib.auth.decorators import login_required
 import os
 import Image
 
-from users.models import Avatar
+from users.models import Avatar, Profile
 from users.forms import AvatarForm
+from myblog.gadget import check_and_enable_profile
 
 DEFAULT_AVATAR = settings.DEFAULT_AVATAR
 
@@ -27,6 +28,9 @@ def register(request, template='users/register.html', mimetype=None):
         password = request.POST.get('password')
         user = User.objects.create_user(email=email, username=username,password=password)
         user.save()
+        #create profile
+        check_and_enable_profile(user)
+        
         user = auth.authenticate(username=username, password=password)
         if user is not None and user.is_active:
             # Correct password, and the user is marked "active"
@@ -79,3 +83,22 @@ def upload_avatar(request):
         generic96 = ""
 
     return HttpResponse(generic96)
+
+def avatar(request, username, size):
+    avatar = get_object_or_404(Avatar, user__username=username, valid=True).image
+    avatar_path = avatar.path
+
+    base, filename = os.path.split(avatar_path)
+    name, extension = os.path.splitext(filename)
+    filename = os.path.join(base, "%s.%s%s" % (name, size, extension))
+    #base, temp = os.path.split(avatar.url)
+    path = "%s/%s.%s%s" % (base, name, size, extension)
+    if (not os.path.isfile(filename)) and os.path.isfile(avatar_path):
+        try:
+            image = Image.open(avatar_path)
+            image.thumbnail((size, size), Image.ANTIALIAS)
+            image.save(filename, "JPEG")
+        except Exception, e:
+            path = avatar_path
+    return serve(request, path, document_root="/")
+
